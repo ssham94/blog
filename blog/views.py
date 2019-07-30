@@ -1,9 +1,9 @@
 from django.http import HttpResponse, HttpResponseRedirect
 from django.shortcuts import render
-from random import randint
-from datetime import datetime
+from blog.models import *
 
 def home_page(request):
-    context = {'current_time': datetime.now()}
+    context = {'articles': Article.objects.order_by('-published_date').filter(draft = False).all()}
     response = render(request, 'index.html', context)
     return response
+

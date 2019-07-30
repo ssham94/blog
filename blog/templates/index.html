@@ -8,18 +8,12 @@
 </head>
 <header>
     <h1>Hello welcome to my blog</h1>
-    <h2>Today's date and time is: {{ current_time }}</h2>
 </header>
 <body>
-    <p>What is a client?</p>
-    <p>A person on a computer/phone/ipad/whatever trying to send requests the web</p>
-    <p>What is a server</p>
-    <p>The place which stores the data for a company or website</p>
-    <p>What is a HTTP reqeust</p>
-    <p>When a web server sends a signal to the server to interact with the server</p>
-    <p>What is a HTTP response</p>
-    <p>The server talking the client and letting the client know what is working</p>
-    <p>What is Django and why do we use it?</p>
-    <p>The web framework for perfectionists with a deadline</p>
+    {% for article in articles %}
+    <h3>{{ article.title }}</h3>
+    <h5>{{ article.published_date }}
+    <p>{{ article.body|linebreaks }}</p>
+    {% endfor %}
 </body>
 </html>
