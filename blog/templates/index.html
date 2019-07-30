@@ -1,19 +1,6 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta http-equiv="X-UA-Compatible" content="ie=edge">
-    <title>Document</title>
-</head>
-<header>
-    <h1>Hello welcome to my blog</h1>
-</header>
-<body>
-    {% for article in articles %}
-    <h3>{{ article.title }}</h3>
-    <h5>{{ article.published_date }}
-    <p>{{ article.body|linebreaks }}</p>
-    {% endfor %}
-</body>
-</html>
+<h1>Welcome to my blog</h1>
+
+{% for article in articles %}
+<h3><a href="/article/{{ article.pk }}">{{ article.title }}</a></h3>
+{% endfor %}
+

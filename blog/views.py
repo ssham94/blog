@@ -7,3 +7,7 @@ def home_page(request):
     response = render(request, 'index.html', context)
     return response
 
+def article(request, id):
+    article = Article.objects.get(pk=id)
+    context = {'article': article}
+    return render(request, 'article.html', context)
