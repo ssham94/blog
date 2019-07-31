@@ -2,5 +2,9 @@
 
 {% for article in articles %}
 <h3><a href="/article/{{ article.pk }}">{{ article.title }}</a></h3>
+
+<p>{{ article.published_date }}</p>
+
+<p>{{ article.body|linebreaks }}</p>
 {% endfor %}
 
