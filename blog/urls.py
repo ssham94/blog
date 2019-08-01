@@ -20,5 +20,6 @@ from django.urls import path
 urlpatterns = [
     path('admin/', admin.site.urls),
     path('home/', home_page),
-    path('article/<int:id>', article)
+    path('article/<int:id>', article),
+    path('comments/new', create_comment, name='create_comment')
 ]
