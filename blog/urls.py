@@ -24,5 +24,8 @@ urlpatterns = [
     path('article/new', new_article, name='new_article'),
     path('article/create', create_article, name='create_article'),
     path('article/<int:id>', find_article),
-    path('comments/new', create_comment, name='create_comment')
+    path('comments/new', create_comment, name='create_comment'),
+    path('login/', login_view, name='login'),
+    path('logout/', logout_view, name='logout'),
+    path('signup/', signup_view, name='signup'),
 ]

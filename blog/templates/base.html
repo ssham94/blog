@@ -6,11 +6,20 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
-    <title>Photogur</title>
+    <title>Blog</title>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/normalize/8.0.1/normalize.min.css.map">
     
 </head>
 <body>
+    <header>
+        <h1>Welcome to my blog</h1>
+        {% if request.user.is_authenticated %}
+            <h3><a href="/logout">Logout</a></h3>
+            <h3><a href="/article/create">New Article</a></h3>
+        {% else %}
+            <h3><a href="/login">Login</a></h3>
+        {% endif %}
+    </header>
     <main>
         {% block content %}
         
