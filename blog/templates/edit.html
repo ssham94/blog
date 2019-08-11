@@ -1,0 +1,10 @@
+{% extends "base.html" %}
+{% block content %}
+<h2>Editing for {{ article.title }}
+<form action = "{% url 'edit_article' article.id %}" mehtod = "post">
+    {% csrf_token %}
+    {{ form.as_p }}
+    <button type = "submit">Edit Article</button>
+</form>
+</div>
+{% endblock content %}

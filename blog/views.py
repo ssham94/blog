@@ -1,10 +1,11 @@
 from django.http import HttpResponse, HttpResponseRedirect
-from django.shortcuts import render
+from django.shortcuts import render, get_object_or_404
 from blog.models import *
 from blog.forms import LoginForm
 from django.contrib.auth import authenticate, login, logout
 from django.contrib.auth.forms import UserCreationForm
 from datetime import datetime
+from django.contrib.auth.decorators import login_required
 
 def root(request):
     return HttpResponseRedirect('/home')
@@ -29,6 +30,7 @@ def create_comment(request):
     context = {'article': article}
     return render(request, 'article.html', context)
 
+@login_required
 def new_article(request):
     form = ArticleForm()
     context = {"form": form, "message": "Create New Article", "action": "/article/create", "time_now": datetime.now()}
@@ -46,6 +48,8 @@ def create_article(request):
         return render(request, 'form.html', context) 
 
 def login_view(request):
+    if request.user.is_authenticated:
+        HttpResponseRedirect('/home')
     if request.method == 'POST':
         form = LoginForm(request.POST)
         if form.is_valid():
@@ -79,3 +83,21 @@ def signup_view(request):
     else:
         form = UserCreationForm()
     return HttpResponse(render(request, 'signup.html', {'form': form}))
+
+@login_required
+def edit_article(request, id):
+    article = get_object_or_404(Article, pk=id, user=request.user.pk)
+    if request.method == 'POST':
+        form = ArticleForm(request.POST)
+        if form.is_valid():
+            title = form.cleaned_data.get('title')
+            body = form.cleaned_data.get('artist')
+            published_date = form.cleaned_data.get('published_date')
+            article.title = title
+            article.body = body
+            article.published_date = published_date
+            return HttpResponseRedirect('/home')
+    form = ArticleForm(request.POST)
+    context = {'article': article, 'form': form}
+    return HttpResponse(render(request, 'edit.html', context))
+            
