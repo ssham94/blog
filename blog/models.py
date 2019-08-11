@@ -11,7 +11,7 @@ class Article(models.Model):
     title = models.CharField(max_length= 255)
     body = models.TextField(validators = [MinLengthValidator(1)])
     draft = models.BooleanField(default= False)
-    published_date = models.DateTimeField(default = datetime.now())
+    published_date = models.DateField(default = date.today())
     user = models.ForeignKey(User, default = 1, on_delete=models.CASCADE, related_name = 'article')
 
 
@@ -35,7 +35,7 @@ class ArticleForm(ModelForm):
         cleaned_data = super().clean()
         draft = cleaned_data.get('draft')
         published_date = cleaned_data.get('published_date')
-        today = datetime.now()
+        today = date.today()
         if draft:
             if published_date <= today:
                 self.add_error('published_date', 'The data must be in the future for a draft')
